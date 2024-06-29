@@ -15,6 +15,7 @@ import 'swiper/css/pagination';
 import '@/assets/css/scrollbar.css';
 import '@/assets/css/globals.css';
 import '@/assets/css/range-slider.css';
+import SessionWrapper from '@/components/SessionWrapper';
 
 const fira_code = Fira_Code({
   weight: ['400', '500', '600', '700'],
@@ -33,29 +34,31 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" dir="ltr" className={cn('light', fira_code.className)}>
-      <head>
-        {/* maximum-scale 1 meta tag need to prevent ios input focus auto zooming */}
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1 maximum-scale=1"
-        />
-      </head>
-      <body>
-        <QueryClientProvider>
-          <ThemeProvider>
-            <WagmiConfig>
-              <SettingsButton />
-              <SettingsDrawer />
-              <Suspense fallback={null}>
-                <ModalsContainer />
-                <DrawersContainer />
-              </Suspense>
-              {children}
-            </WagmiConfig>
-          </ThemeProvider>
-        </QueryClientProvider>
-      </body>
-    </html>
+    <SessionWrapper>
+      <html lang="en" dir="ltr" className={cn('light', fira_code.className)}>
+        <head>
+          {/* maximum-scale 1 meta tag need to prevent ios input focus auto zooming */}
+          <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1 maximum-scale=1"
+          />
+        </head>
+        <body>
+          <QueryClientProvider>
+            <ThemeProvider>
+              <WagmiConfig>
+                <SettingsButton />
+                <SettingsDrawer />
+                <Suspense fallback={null}>
+                  <ModalsContainer />
+                  <DrawersContainer />
+                </Suspense>
+                {children}
+              </WagmiConfig>
+            </ThemeProvider>
+          </QueryClientProvider>
+        </body>
+      </html>
+    </SessionWrapper>
   );
 }

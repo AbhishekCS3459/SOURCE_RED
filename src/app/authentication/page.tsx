@@ -1,14 +1,26 @@
+'use client';
 import Logo from '@/components/ui/logo';
 import Image from '@/components/ui/image';
 import SignInForm from '@/components/auth/sign-in-form';
 import AnchorLink from '@/components/ui/links/anchor-link';
 import routes from '@/config/routes';
+// importing necessary functions
+import { useSession, signIn, signOut } from 'next-auth/react';
 
 // import images and icons
 import BitcoinImg from '@/assets/images/bit-coin.png';
 import GoogleIcon from '@/assets/images/google-icon.svg';
-
+import GithubIcon from '@/assets/images/github3.svg';
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 export default function SignIn() {
+  const { data: session } = useSession();
+  const router = useRouter();
+  if (session) {
+    console.log(session);
+    router.push('/profile');
+    return <div>Already Logged In</div>;
+  }
   return (
     <div className="grid flex-grow grid-cols-1 gap-0 lg:grid-cols-[1fr_40%] 3xl:grid-cols-2">
       <div className="flex flex-col items-center justify-center py-14">
@@ -24,6 +36,15 @@ export default function SignIn() {
               Please login account with your info
             </p>
           </div>
+          <button
+            onClick={() => signIn('github')}
+            className="flex w-full items-center justify-center gap-2.5 rounded-md border-2 border-[#F3F4F6] bg-[#F3F4F6] py-2 text-sm font-medium text-black transition-all hover:bg-transparent dark:border-brand dark:bg-brand dark:text-gray-300 dark:hover:bg-transparent sm:rounded-lg sm:tracking-[0.04em]"
+          >
+            <div className="relative h-5 w-5 sm:h-7 sm:w-7">
+              <Image src={GithubIcon} alt="google-icon" fill />
+            </div>
+            Log in with GitHub
+          </button>
           <button className="flex w-full items-center justify-center gap-2.5 rounded-md border-2 border-[#F3F4F6] bg-[#F3F4F6] py-2 text-sm font-medium text-black transition-all hover:bg-transparent dark:border-brand dark:bg-brand dark:text-gray-300 dark:hover:bg-transparent sm:rounded-lg sm:tracking-[0.04em]">
             <div className="relative h-5 w-5 sm:h-7 sm:w-7">
               <Image src={GoogleIcon} alt="google-icon" fill />
