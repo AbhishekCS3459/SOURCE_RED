@@ -1,7 +1,6 @@
 'use client';
 
-import { Fragment, useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { Fragment } from 'react';
 import { useTheme } from 'next-themes';
 import cn from 'classnames';
 import { Dialog } from '@/components/ui/dialog';
@@ -10,30 +9,16 @@ import Button from '@/components/ui/button';
 import { RadioGroup } from '@/components/ui/radio-group';
 import Scrollbar from '@/components/ui/scrollbar';
 import { useLocalStorage } from '@/lib/hooks/use-local-storage';
-import { useDirection } from '@/lib/hooks/use-direction';
 import { useThemeColor } from '@/lib/hooks/use-theme-color';
 import { useSettingsDrawer } from '@/components/settings/settings-context';
 import { Close } from '@/components/icons/close';
 import { Sun } from '@/components/icons/sun';
 import { Moon } from '@/components/icons/moon';
-import { LeftAlign } from '@/components/icons/left-align';
-import { RightAlign } from '@/components/icons/right-align';
-import { ModernLayoutIcon } from '@/components/icons/modern-layout-icon';
-import { RetroLayoutIcon } from '@/components/icons/retro-layout-icon';
-import { MinimalLayoutIcon } from '@/components/icons/minimal-layout-icon';
-import { ClassicLayoutIcon } from '@/components/icons/classic-layout-icon';
-import { useLayout } from '@/lib/hooks/use-layout';
-import { LAYOUT_OPTIONS } from '@/lib/constants';
-import { usePathname } from 'next/navigation';
 
 const ColorPreset = [
   {
     label: 'Black',
     value: '#323743',
-  },
-  {
-    label: 'Blue',
-    value: '#2a52be',
   },
   {
     label: 'Green',
@@ -42,14 +27,6 @@ const ColorPreset = [
   {
     label: 'Red',
     value: '#e34234',
-  },
-  {
-    label: 'Purple',
-    value: '#9370DB',
-  },
-  {
-    label: 'Orange',
-    value: '#ffa500',
   },
 ];
 
@@ -70,7 +47,7 @@ function SwitcherButton({
           'flex h-[70px] items-center justify-center rounded-lg text-center text-sm font-medium uppercase tracking-wide transition-all',
           checked
             ? 'bg-white shadow-large dark:bg-gray-600'
-            : 'bg-gray-100 text-gray-500 group-hover:bg-gray-50 dark:bg-gray-800 dark:text-gray-400 dark:group-hover:bg-gray-700'
+            : 'bg-gray-100 text-gray-500 group-hover:bg-gray-50 dark:bg-gray-800 dark:text-gray-400 dark:group-hover:bg-gray-700',
         )}
       >
         {children}
@@ -80,7 +57,7 @@ function SwitcherButton({
           'mt-3 block text-center text-sm transition-all',
           checked
             ? 'text-brand dark:text-white'
-            : 'text-gray-500 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white'
+            : 'text-gray-500 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white',
         )}
       >
         {title}
@@ -121,114 +98,11 @@ function ThemeSwitcher() {
   );
 }
 
-// Component: DirectionSwitcher
-function DirectionSwitcher() {
-  const [direction, setDirection] = useLocalStorage('criptic-direction', 'ltr');
-  useDirection(direction ? direction : 'ltr');
-  return (
-    <div className="px-6 pt-8">
-      <h4 className="mb-4 text-sm font-medium text-gray-900 dark:text-white">
-        Direction
-      </h4>
-      <RadioGroup
-        value={direction}
-        onChange={setDirection}
-        className="grid grid-cols-2 gap-5 "
-      >
-        <RadioGroup.Option value="ltr">
-          {({ checked }) => (
-            <SwitcherButton title={'LTR'} checked={checked}>
-              <LeftAlign />
-            </SwitcherButton>
-          )}
-        </RadioGroup.Option>
-        <RadioGroup.Option value="rtl">
-          {({ checked }) => (
-            <SwitcherButton title={'RTL'} checked={checked}>
-              <RightAlign />
-            </SwitcherButton>
-          )}
-        </RadioGroup.Option>
-      </RadioGroup>
-    </div>
-  );
-}
-
-// Component: LayoutSwitcher
-const LayoutIcons: any = {
-  [LAYOUT_OPTIONS.MODERN]: <ModernLayoutIcon />,
-  [LAYOUT_OPTIONS.MINIMAL]: <MinimalLayoutIcon />,
-  [LAYOUT_OPTIONS.RETRO]: <RetroLayoutIcon />,
-  [LAYOUT_OPTIONS.CLASSIC]: <ClassicLayoutIcon />,
-};
-
-function LayoutSwitcher() {
-  const { layout, setLayout } = useLayout();
-  const layoutOptions: string[] = Object.values(LAYOUT_OPTIONS);
-  const router = useRouter();
-  const pathname = usePathname();
-  let URLSegments = pathname.split('/');
-  const layoutSegmentFromURL = URLSegments[1];
-  const isLayoutSegmentExistInURL =
-    layoutOptions.includes(layoutSegmentFromURL);
-
-  function handleLayout(selectedLayout: string) {
-    setLayout(selectedLayout);
-    if (pathname.includes('/auth')) return false;
-
-    if (isLayoutSegmentExistInURL) {
-      if (selectedLayout !== LAYOUT_OPTIONS.MODERN) {
-        URLSegments.splice(1, 1, String(selectedLayout));
-      } else {
-        return router.push(`/${URLSegments.slice(2).join('/')}`);
-      }
-      return router.push(URLSegments.join('/'));
-    }
-
-    return router.push(`${selectedLayout}${pathname}`);
-  }
-
-  // set initial layout on component mount
-  useEffect(() => {
-    const initialLayout = layoutOptions.find(
-      (layout) => layout === layoutSegmentFromURL
-    );
-    setLayout(() => initialLayout ?? LAYOUT_OPTIONS.MODERN);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  return (
-    <div className="px-6 pt-8">
-      <h4 className="mb-4 text-sm font-medium text-gray-900 dark:text-white">
-        Layout
-      </h4>
-      <RadioGroup
-        value={layout}
-        onChange={(value) => handleLayout(value)}
-        className="grid grid-cols-2 gap-5 "
-      >
-        {layoutOptions.map((option) => (
-          <RadioGroup.Option key={option} value={option}>
-            {({ checked }) => (
-              <SwitcherButton
-                title={option[0].toUpperCase() + option.slice(1)}
-                checked={checked}
-              >
-                {LayoutIcons[option]}
-              </SwitcherButton>
-            )}
-          </RadioGroup.Option>
-        ))}
-      </RadioGroup>
-    </div>
-  );
-}
-
 // Component: ColorSwitcher
 function ColorSwitcher() {
   const [themeColor, setThemeColor] = useLocalStorage(
     'criptic-color',
-    '#323743'
+    '#323743',
   );
   useThemeColor(themeColor ? themeColor : '#323743');
   return (
@@ -291,7 +165,7 @@ export default function SettingsDrawer() {
             <div className="h-full w-full">
               <div className="flex h-16 items-center justify-between gap-6 border-b border-dashed border-gray-200 px-6 dark:border-gray-700">
                 <h3 className="text-base font-medium uppercase text-gray-900 dark:text-white">
-                  Settings
+                  Web Settings
                 </h3>
                 <Button
                   title="Close"
@@ -308,8 +182,8 @@ export default function SettingsDrawer() {
               <Scrollbar style={{ height: 'calc(100% - 64px)' }}>
                 <div className="pb-8">
                   <ThemeSwitcher />
-                  <LayoutSwitcher />
-                  <DirectionSwitcher />
+                  {/* <LayoutSwitcher /> */}
+                  {/* <DirectionSwitcher /> */}
                   <ColorSwitcher />
                 </div>
               </Scrollbar>
