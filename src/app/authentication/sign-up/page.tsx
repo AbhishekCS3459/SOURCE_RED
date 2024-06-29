@@ -5,7 +5,7 @@ import AnchorLink from '@/components/ui/links/anchor-link';
 
 // import images and icons
 import BitcoinImg from '@/assets/images/bit-coin.png';
-import GoogleIcon from '@/assets/images/google-icon.svg';
+import GitHub from '@/assets/images/github3.svg';
 import routes from '@/config/routes';
 
 export default function SignUp() {
@@ -27,9 +27,9 @@ export default function SignUp() {
             </div>
             <button className="flex w-full items-center justify-center gap-2.5 rounded-md border-2 border-[#F3F4F6] bg-[#F3F4F6] py-2 text-sm font-medium text-black transition-all hover:bg-transparent dark:border-brand dark:bg-brand dark:text-gray-300 dark:hover:bg-transparent sm:rounded-lg sm:tracking-[0.04em]">
               <div className="relative h-5 w-5 sm:h-7 sm:w-7">
-                <Image src={GoogleIcon} alt="google-icon" fill />
+                <Image src={GitHub} alt="google-icon" fill />
               </div>
-              Sign up with Google
+              Sign up with GitHub
             </button>
             <p className="flex items-center justify-center gap-3 text-sm text-[#4B5563] before:h-[1px] before:w-full before:border-t before:border-dashed after:h-[1px] after:w-full after:border-t after:border-dashed dark:text-gray-300 dark:before:border-gray-500 dark:after:border-gray-500 ">
               or

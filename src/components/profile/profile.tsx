@@ -10,10 +10,12 @@ import Button from '@/components/ui/button';
 import AnchorLink from '@/components/ui/links/anchor-link';
 import Avatar from '@/components/ui/avatar';
 import ProfileTab from '@/components/profile/profile-tab';
+import { useSession } from 'next-auth/react';
 
 export default function Profile() {
   const [copyButtonStatus, setCopyButtonStatus] = useState(false);
   const [_, copyToClipboard] = useCopyToClipboard();
+  const { data } = useSession();
   function handleCopyToClipboard() {
     copyToClipboard(authorData.wallet_key);
     setCopyButtonStatus(true);
@@ -26,10 +28,10 @@ export default function Profile() {
       <div className="shrink-0 border-dashed border-gray-200 dark:border-gray-700 md:w-72 ltr:md:border-r md:ltr:pr-7 rtl:md:border-l md:rtl:pl-7 lg:ltr:pr-10 lg:rtl:pl-10 2xl:w-80 3xl:w-96 3xl:ltr:pr-14 3xl:rtl:pl-14">
         <div className="text-center ltr:md:text-left rtl:md:text-right">
           <h2 className="text-xl font-medium tracking-tighter text-gray-900 dark:text-white xl:text-2xl">
-            {authorData?.name}
+            {data?.user?.name}
           </h2>
           <div className="mt-1 text-sm font-medium tracking-tighter text-gray-600 dark:text-gray-400 xl:mt-3">
-            @{authorData?.user_name}
+            {data?.user?.email}
           </div>
           <div className="md:max-w-auto mx-auto mt-5 flex h-9 max-w-sm items-center rounded-full bg-white shadow-card dark:bg-light-dark md:mx-0 xl:mt-6">
             <div className="inline-flex h-full shrink-0 grow-0 items-center rounded-full bg-gray-900 px-4 text-xs text-white sm:text-sm">
