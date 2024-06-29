@@ -1,20 +1,21 @@
 'use client';
 
-import CoinSlider from '@/components/ui/coin-card-two';
 import OverviewChart from '@/components/ui/chats/overview-chart';
 import ComparisonChart from '@/components/ui/chats/retro-comparision-chart';
+import CoinSlider from '@/components/ui/coin-card-two';
 // import VolumeChart from '@/components/ui/chats/volume-chart';
-import TopPools from '@/components/ui/top-pools';
-import TransactionTable from '@/components/transaction/transaction-table';
 import TopCurrencyTable from '@/components/top-currency/currency-table';
-import { coinSlideData } from '@/data/static/coin-slide-data';
-import TransactCoin from '@/components/ui/transact-coin';
+import TransactionTable from '@/components/transaction/transaction-table';
 import Avatar from '@/components/ui/avatar';
+import TopPools from '@/components/ui/top-pools';
 import TopupButton from '@/components/ui/topup-button';
+import TransactCoin from '@/components/ui/transact-coin';
+import { coinSlideData } from '@/data/static/coin-slide-data';
+import { useSession } from 'next-auth/react';
 //images
-import AuthorImage from '@/assets/images/author.jpg';
 
 export default function ClassicScreen() {
+  const { data } = useSession();
   return (
     <>
       <div className="flex flex-wrap">
@@ -28,8 +29,10 @@ export default function ClassicScreen() {
           <div className="w-full">
             <div className="mb-8 h-full">
               <Avatar
-                image={AuthorImage}
+                image={data?.user?.image || ''}
                 alt="Author"
+                width={200}
+                height={200}
                 className="mx-auto mb-6"
                 size="lg"
               />

@@ -1,7 +1,7 @@
 'use client';
-import Image from '@/components/ui/image';
-import Avatar from '@/components/ui/avatar';
 import Profile from '@/components/profile/profile';
+import Avatar from '@/components/ui/avatar';
+import Image from '@/components/ui/image';
 // static data
 import { authorData } from '@/data/static/author';
 import { useSession } from 'next-auth/react';
@@ -28,6 +28,8 @@ const AuthorProfilePage = () => {
           size="xl"
           image={data?.user?.image || ''}
           alt="Author"
+          width={200}
+          height={200}
           className="z-10 mx-auto -mt-12 dark:border-gray-500 sm:-mt-14 md:mx-0 md:-mt-16 xl:mx-0 3xl:-mt-20"
         />
         <Profile />

@@ -1,18 +1,18 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import ComparisonChart from '@/components/ui/chats/comparison-chart';
-import Avatar from '@/components/ui/avatar';
-import OverviewChart from '@/components/ui/chats/overview-chart';
-import TopPools from '@/components/ui/top-pools';
 import TransactionTable from '@/components/transaction/transaction-table';
-import WalletCard from '@/components/ui/wallet-card';
-import TransactCoin from '@/components/ui/transact-coin';
+import Avatar from '@/components/ui/avatar';
+import ComparisonChart from '@/components/ui/chats/comparison-chart';
+import OverviewChart from '@/components/ui/chats/overview-chart';
 import PriceFeedSlider from '@/components/ui/live-price-feed';
+import TopPools from '@/components/ui/top-pools';
+import TransactCoin from '@/components/ui/transact-coin';
+import WalletCard from '@/components/ui/wallet-card';
 import { priceFeedData } from '@/data/static/price-feed';
 import { useBreakpoint } from '@/lib/hooks/use-breakpoint';
+import { useSession } from 'next-auth/react';
+import { useEffect, useState } from 'react';
 //images
-import AuthorImage from '@/assets/images/author.jpg';
 
 const topPoolsLimit = (breakpoint: string) => {
   switch (breakpoint) {
@@ -28,6 +28,7 @@ const topPoolsLimit = (breakpoint: string) => {
 export default function MinimalScreen() {
   const [limit, setLimit] = useState(4);
   const breakpoint = useBreakpoint();
+  const { data } = useSession();
   useEffect(() => {
     setLimit(topPoolsLimit(breakpoint));
   }, [breakpoint]);
@@ -44,8 +45,10 @@ export default function MinimalScreen() {
             <div className="w-full">
               <div className="mb-8 h-full">
                 <Avatar
-                  image={AuthorImage}
+                  image={data?.user?.image || ''}
                   alt="Author"
+                  width={200}
+                  height={200}
                   className="mx-auto mb-6"
                   size="lg"
                 />
@@ -53,7 +56,7 @@ export default function MinimalScreen() {
                   My Balance
                 </h3>
                 <div className="mb-7 text-center font-medium tracking-tighter text-gray-900 dark:text-white xl:text-2xl 3xl:mb-8 3xl:text-[32px]">
-                  $10,86,000
+                  $10,86,002
                 </div>
               </div>
               <span className="-mx-6 block border-t border-dashed border-t-gray-200 dark:border-t-gray-700 3xl:-mx-8" />

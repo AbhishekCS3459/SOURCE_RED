@@ -1,18 +1,17 @@
 'use client';
 
-import cn from 'classnames';
 import AuthorCard from '@/components/ui/author-card';
-import Logo from '@/components/ui/logo';
 import { MenuItem } from '@/components/ui/collapsible-menu';
+import Logo from '@/components/ui/logo';
+import cn from 'classnames';
 // import Scrollbar from '@/components/ui/scrollbar';
-import Button from '@/components/ui/button';
 import { useDrawer } from '@/components/drawer-views/context';
 import { Close } from '@/components/icons/close';
+import Button from '@/components/ui/button';
 import { defaultMenuItems } from '@/layouts/sidebar/_menu-items';
 import { LAYOUT_OPTIONS } from '@/lib/constants';
 //images
-import AuthorImage from '@/assets/images/author.jpg';
-import React from 'react';
+import { useSession } from 'next-auth/react';
 
 interface SidebarProps {
   className?: string;
@@ -26,6 +25,7 @@ export default function Sidebar({
   menuItems = defaultMenuItems,
 }: SidebarProps) {
   const { closeDrawer } = useDrawer();
+  const { data } = useSession();
   const sideBarMenus = menuItems?.map((item) => ({
     name: item.name,
     icon: item.icon,
@@ -72,9 +72,11 @@ export default function Sidebar({
       <div className="custom-scrollbar h-[calc(100%-98px)] overflow-hidden overflow-y-auto">
         <div className="px-6 pb-5 2xl:px-8">
           <AuthorCard
-            image={AuthorImage}
-            name="Cameron Williamson"
-            role="admin"
+            image={data?.user?.image || ''}
+            name={data?.user?.name || ''}
+            width={200}
+            height={200}
+            role={data?.user?.email || ''}
           />
 
           <div className="mt-12">

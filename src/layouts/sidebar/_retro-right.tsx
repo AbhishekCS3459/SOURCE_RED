@@ -1,20 +1,21 @@
 'use client';
 
-import cn from 'classnames';
-import Scrollbar from '@/components/ui/scrollbar';
 import Avatar from '@/components/ui/avatar';
+import Scrollbar from '@/components/ui/scrollbar';
 import TopupButton from '@/components/ui/topup-button';
 import TransactCoin from '@/components/ui/transact-coin';
 import WalletCard from '@/components/ui/wallet-card-two';
+import cn from 'classnames';
 //images
-import AuthorImage from '@/assets/images/author.jpg';
+import { useSession } from 'next-auth/react';
 
 export default function Sidebar({ className }: { className?: string }) {
+  const { data } = useSession();
   return (
     <aside
       className={cn(
         'top-0 z-20 h-full w-full max-w-full border-dashed border-slate-200 ltr:left-0 rtl:right-0 dark:border-gray-700 lg:fixed lg:w-80 ltr:lg:border-l rtl:lg:border-r xl:pt-20 3xl:w-[350px]',
-        className
+        className,
       )}
     >
       <div className="absolute right-0 top-0 z-20 h-[75px] w-full bg-sidebar-body dark:bg-dark md:block xl:hidden" />
@@ -23,8 +24,10 @@ export default function Sidebar({ className }: { className?: string }) {
           <div className="mx-5 my-16 flex h-full flex-col justify-between overflow-x-hidden rounded-lg bg-transparent sm:mx-6 sm:flex-row lg:mx-0 lg:flex-col lg:p-6 xl:my-0 2xl:p-8">
             <div className="w-full sm:w-[48%] lg:w-full">
               <Avatar
-                image={AuthorImage}
+                image={data?.user?.image || ''}
                 alt="Author"
+                width={200}
+                height={200}
                 className="mx-auto mb-6"
                 size="lg"
               />
@@ -32,7 +35,7 @@ export default function Sidebar({ className }: { className?: string }) {
                 My Balance
               </h3>
               <div className="mb-7 text-center font-medium tracking-tighter text-gray-900 dark:text-white xl:text-2xl 3xl:mb-8 3xl:text-[32px]">
-                $10,86,000
+                $10,86,001
               </div>
               <TopupButton className="mb-8" />
               <div>
