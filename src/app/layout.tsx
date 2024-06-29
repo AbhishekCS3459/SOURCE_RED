@@ -24,8 +24,9 @@ const fira_code = Fira_Code({
 });
 
 export const metadata = {
-  title: 'Criptic',
-  description: 'Criptic - React Next Web3 NFT Crypto Dashboard Template',
+  title: 'SourceRED',
+  description:
+    'SourceRED- A platform to select right choice for open source projects here.',
 };
 
 export default function RootLayout({

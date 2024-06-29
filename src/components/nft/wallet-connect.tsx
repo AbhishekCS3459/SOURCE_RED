@@ -9,6 +9,7 @@ import { Transition } from '@/components/ui/transition';
 import ActiveLink from '@/components/ui/links/active-link';
 import { ChevronForward } from '@/components/icons/chevron-forward';
 import { PowerIcon } from '@/components/icons/power';
+import SettingsButton from '../settings/settings-button';
 
 export default function WalletConnect({
   btnClassName,
@@ -101,7 +102,7 @@ export default function WalletConnect({
       ) : (
         <Button
           onClick={() => open()}
-          className={cn('shadow-main hover:shadow-large', btnClassName)}
+          className={cn('shadow-main hover:shadow-large mx-4', btnClassName)}
         >
           CONNECT
         </Button>

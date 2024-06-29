@@ -19,53 +19,6 @@ export const defaultMenuItems = [
     href: routes.home,
   },
   {
-    name: 'Live Pricing',
-    icon: <LivePricing />,
-    href: routes.livePricing,
-  },
-  {
-    name: 'Trading Bot',
-    icon: <TradingBotIcon />,
-    href: routes.tradingBot,
-  },
-  {
-    name: 'NFTs',
-    icon: <CompassIcon />,
-    href: routes.search,
-    dropdownItems: [
-      {
-        name: 'Explore NFTs',
-        icon: <CompassIcon />,
-        href: routes.search,
-      },
-      {
-        name: 'Create NFT',
-        icon: <PlusCircle />,
-        href: routes.createNft,
-      },
-      {
-        name: 'NFT Details',
-        icon: <DiskIcon />,
-        href: routes.nftDetails,
-      },
-    ],
-  },
-  {
-    name: 'Farm',
-    icon: <FarmIcon />,
-    href: routes.farms,
-  },
-  {
-    name: 'Swap',
-    icon: <ExchangeIcon />,
-    href: routes.swap,
-  },
-  {
-    name: 'Liquidity',
-    icon: <PoolIcon />,
-    href: routes.liquidity,
-  },
-  {
     name: 'Profile',
     icon: <ProfileIcon />,
     href: routes.profile,
@@ -74,20 +27,20 @@ export const defaultMenuItems = [
     name: 'Vote',
     icon: <VoteIcon />,
     href: routes.vote,
-    dropdownItems: [
-      {
-        name: 'Explore',
-        href: routes.vote,
-      },
-      {
-        name: 'Vote with criptic',
-        href: routes.proposals,
-      },
-      {
-        name: 'Create proposal',
-        href: routes.createProposal,
-      },
-    ],
+    // dropdownItems: [
+    //   {
+    //     name: 'Explore',
+    //     href: routes.vote,
+    //   },
+    //   {
+    //     name: 'Vote with SourceRED',
+    //     href: routes.proposals,
+    //   },
+    //   {
+    //     name: 'Create proposal',
+    //     href: routes.createProposal,
+    //   },
+    // ],
   },
   {
     name: 'Authentication',
@@ -121,48 +74,6 @@ export const MinimalMenuItems = [
     href: routes.home,
   },
   {
-    name: 'Live Pricing',
-    icon: <LivePricing />,
-    href: routes.livePricing,
-  },
-  {
-    name: 'Trading Bot',
-    icon: <TradingBotIcon />,
-    href: routes.tradingBot,
-  },
-  {
-    name: 'NFTs',
-    icon: <CompassIcon />,
-    href: routes.search,
-    dropdownItems: [
-      {
-        name: 'Explore NFTs',
-        icon: <CompassIcon />,
-        href: routes.search,
-      },
-      {
-        name: 'Create NFT',
-        icon: <PlusCircle />,
-        href: routes.createNft,
-      },
-      {
-        name: 'NFT Details',
-        icon: <DiskIcon />,
-        href: routes.nftDetails,
-      },
-    ],
-  },
-  {
-    name: 'Farm',
-    icon: <FarmIcon />,
-    href: routes.farms,
-  },
-  {
-    name: 'Swap',
-    icon: <ExchangeIcon />,
-    href: routes.swap,
-  },
-  {
     name: 'Pages',
     icon: <VoteIcon />,
     href: routes.pages,
@@ -181,20 +92,20 @@ export const MinimalMenuItems = [
         name: 'Vote',
         icon: <VoteIcon />,
         href: routes.vote,
-        dropdownItems: [
-          {
-            name: 'Explore',
-            href: routes.vote,
-          },
-          {
-            name: 'Vote with criptic',
-            href: routes.proposals,
-          },
-          {
-            name: 'Create proposal',
-            href: routes.createProposal,
-          },
-        ],
+        // dropdownItems: [
+        //   {
+        //     name: 'Explore',
+        //     href: routes.vote,
+        //   },
+        //   {
+        //     name: 'Vote with SourceRED',
+        //     href: routes.proposals,
+        //   },
+        //   {
+        //     name: 'Create proposal',
+        //     href: routes.createProposal,
+        //   },
+        // ],
       },
       {
         name: 'Authentication',
