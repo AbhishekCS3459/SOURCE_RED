@@ -27,20 +27,20 @@ export const defaultMenuItems = [
     name: 'Vote',
     icon: <VoteIcon />,
     href: routes.vote,
-    dropdownItems: [
-      {
-        name: 'Explore',
-        href: routes.vote,
-      },
-      {
-        name: 'Vote with criptic',
-        href: routes.proposals,
-      },
-      {
-        name: 'Create proposal',
-        href: routes.createProposal,
-      },
-    ],
+    // dropdownItems: [
+    //   {
+    //     name: 'Explore',
+    //     href: routes.vote,
+    //   },
+    //   {
+    //     name: 'Vote with SourceRED',
+    //     href: routes.proposals,
+    //   },
+    //   {
+    //     name: 'Create proposal',
+    //     href: routes.createProposal,
+    //   },
+    // ],
   },
   {
     name: 'Authentication',
@@ -92,20 +92,20 @@ export const MinimalMenuItems = [
         name: 'Vote',
         icon: <VoteIcon />,
         href: routes.vote,
-        dropdownItems: [
-          {
-            name: 'Explore',
-            href: routes.vote,
-          },
-          {
-            name: 'Vote with criptic',
-            href: routes.proposals,
-          },
-          {
-            name: 'Create proposal',
-            href: routes.createProposal,
-          },
-        ],
+        // dropdownItems: [
+        //   {
+        //     name: 'Explore',
+        //     href: routes.vote,
+        //   },
+        //   {
+        //     name: 'Vote with SourceRED',
+        //     href: routes.proposals,
+        //   },
+        //   {
+        //     name: 'Create proposal',
+        //     href: routes.createProposal,
+        //   },
+        // ],
       },
       {
         name: 'Authentication',
