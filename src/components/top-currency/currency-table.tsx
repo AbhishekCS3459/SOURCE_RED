@@ -1,4 +1,5 @@
-import React from 'react';
+'use client';
+import React, { useEffect, useState, useMemo } from 'react';
 import {
   useTable,
   useResizeColumns,
@@ -9,33 +10,39 @@ import {
 import { ResponsiveContainer, AreaChart, Area } from 'recharts';
 import Scrollbar from '@/components/ui/scrollbar';
 import { ChevronDown } from '@/components/icons/chevron-down';
-import { TopCurrencyData } from '@/data/static/top-currency-data';
 import { useBreakpoint } from '@/lib/hooks/use-breakpoint';
 import { useIsMounted } from '@/lib/hooks/use-is-mounted';
 
+interface Repo {
+  id: number;
+  html_url: string;
+  full_name: string;
+  description: string;
+  stargazers_count: number;
+}
+
 const COLUMNS = [
   {
-    Header: '#',
+    Header: 'projectID',
     accessor: 'id',
     minWidth: 60,
     maxWidth: 80,
   },
   {
     Header: 'Name',
-    accessor: 'coin',
-    // @ts-ignore
+    accessor: 'full_name',
     Cell: ({ cell: { value } }) => (
-      // <div className="ltr:text-right rtl:text-left">{value}</div>
       <div className="mb-5 grid grid-cols-3 gap-4 text-sm text-gray-900 last:mb-0 dark:text-white">
         <div className="col-span-2 flex items-center gap-2">
-          <span className="w-6 shrink-0">{value.icon}</span>
           <span className="flex flex-col gap-0.5">
-            <span className="whitespace-nowrap text-xs font-medium capitalize">
-              {value.name}
-            </span>
-            <span className="text-xs font-normal text-gray-500 dark:text-gray-400">
-              {value.symbol}
-            </span>
+            <a
+              href={value}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="whitespace-nowrap text-xs font-medium capitalize text-blue-600 hover:underline"
+            >
+              {value}
+            </a>
           </span>
         </div>
       </div>
@@ -46,111 +53,47 @@ const COLUMNS = [
   {
     Header: () => (
       <div className="ltr:ml-auto ltr:text-right rtl:mr-auto rtl:text-left">
-        Price
+        Description
       </div>
     ),
-    accessor: 'usd_price',
-    // @ts-ignore
+    accessor: 'description',
     Cell: ({ cell: { value } }) => (
-      <div className="ltr:text-right rtl:text-left">${value}</div>
+      <div className="ltr:text-right rtl:text-left">{value}</div>
     ),
     minWidth: 100,
-    maxWidth: 140,
+    maxWidth: 400,
   },
   {
     Header: () => (
       <div className="ltr:ml-auto ltr:text-right rtl:mr-auto rtl:text-left">
-        24H Change
+        Stars
       </div>
     ),
-    accessor: 'usd_price_change_24h',
-    // @ts-ignore
+    accessor: 'stargazers_count',
     Cell: ({ cell: { value } }) => (
-      <div
-        className={`ltr:text-right rtl:text-left ${
-          value > 0 ? 'text-green-500' : 'text-red-500'
-        }`}
-      >
-        {value}%
-      </div>
+      <div className="ltr:text-right rtl:text-left">{value} ⭐</div>
     ),
     minWidth: 100,
     maxWidth: 140,
-  },
-  {
-    Header: () => (
-      <div className="ltr:ml-auto ltr:text-right rtl:mr-auto rtl:text-left">
-        24H Volume
-      </div>
-    ),
-    accessor: 'usd_volume_24h',
-    // @ts-ignore
-    Cell: ({ cell: { value } }) => (
-      <div className="ltr:text-right rtl:text-left">${value}</div>
-    ),
-    minWidth: 100,
-    maxWidth: 140,
-  },
-  {
-    Header: () => (
-      <div className="ltr:ml-auto ltr:text-right rtl:mr-auto rtl:text-left">
-        Market Cap
-      </div>
-    ),
-    accessor: 'usd_marketcap',
-    // @ts-ignore
-    Cell: ({ cell: { value } }) => (
-      <div className="flex items-center justify-end">${value}</div>
-    ),
-    minWidth: 100,
-    maxWidth: 140,
-  },
-  {
-    Header: () => (
-      <div className="ltr:ml-auto ltr:text-right rtl:mr-auto rtl:text-left">
-        7D Chart
-      </div>
-    ),
-    accessor: 'prices',
-    // @ts-ignore
-    Cell: ({ cell: { value } }) => (
-      <div className="h-10 w-full">
-        <ResponsiveContainer width="100%" height="100%">
-          <AreaChart data={value}>
-            <defs>
-              <linearGradient
-                id="liquidity-gradient"
-                x1="0"
-                y1="0"
-                x2="0"
-                y2="1"
-              >
-                <stop offset="5%" stopColor="#bc9aff" stopOpacity={0.5} />
-                <stop offset="100%" stopColor="#7645D9" stopOpacity={0} />
-              </linearGradient>
-            </defs>
-            <Area
-              type="natural"
-              dataKey="value"
-              stroke="#7645D9"
-              strokeWidth={1.5}
-              fill="url(#liquidity-gradient)"
-              dot={false}
-            />
-          </AreaChart>
-        </ResponsiveContainer>
-      </div>
-    ),
-    minWidth: 200,
-    maxWidth: 300,
   },
 ];
 
 export default function TopCurrencyTable() {
   const isMounted = useIsMounted();
   const breakpoint = useBreakpoint();
-  const data = React.useMemo(() => TopCurrencyData, []);
-  const columns = React.useMemo(() => COLUMNS, []);
+  const [data, setData] = useState<Repo[]>([]);
+
+  useEffect(() => {
+    const fetchRepos = async () => {
+      const res = await fetch('/api/repos');
+      const data = await res.json();
+      setData(data.items);
+    };
+
+    fetchRepos();
+  }, []);
+
+  const columns = useMemo(() => COLUMNS, []);
 
   const {
     getTableProps,
@@ -161,7 +104,6 @@ export default function TopCurrencyTable() {
     prepareRow,
   } = useTable(
     {
-      // @ts-ignore
       columns,
       data,
     },
@@ -178,7 +120,7 @@ export default function TopCurrencyTable() {
       <div className="rounded-tl-lg rounded-tr-lg bg-white px-4 pt-6 dark:bg-light-dark md:px-8 md:pt-8">
         <div className="flex flex-col items-center justify-between border-b border-dashed border-gray-200 pb-5 dark:border-gray-700 md:flex-row">
           <h2 className="mb-3 shrink-0 text-lg font-medium uppercase text-black dark:text-white sm:text-xl md:mb-0 md:text-2xl">
-            Top Cryptocurrency
+            Top Projects
           </h2>
         </div>
       </div>
