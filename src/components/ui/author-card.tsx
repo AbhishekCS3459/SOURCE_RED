@@ -1,7 +1,7 @@
 import Avatar from '@/components/ui/avatar';
 
 type AuthorCardProps = {
-  image: string;
+  image: string | any;
   name?: string;
   role?: string;
   width?: number;

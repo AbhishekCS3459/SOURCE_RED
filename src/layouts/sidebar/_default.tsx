@@ -12,7 +12,7 @@ import { defaultMenuItems } from '@/layouts/sidebar/_menu-items';
 import { LAYOUT_OPTIONS } from '@/lib/constants';
 //images
 import { useSession } from 'next-auth/react';
-
+import AuthorImage from '@/assets/images/user-3.png';
 interface SidebarProps {
   className?: string;
   layoutOption?: string;
@@ -72,7 +72,7 @@ export default function Sidebar({
       <div className="custom-scrollbar h-[calc(100%-98px)] overflow-hidden overflow-y-auto">
         <div className="px-6 pb-5 2xl:px-8">
           <AuthorCard
-            image={data?.user?.image || ''}
+            image={data?.user?.image || AuthorImage}
             name={data?.user?.name || ''}
             width={200}
             height={200}
