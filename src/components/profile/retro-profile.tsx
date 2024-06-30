@@ -50,7 +50,7 @@ export default function RetroProfile() {
             onClick={() =>
               openModal('FOLLOWING_VIEW', {
                 title: 'Following',
-                count: '1,504',
+                count: '1,507',
                 users: data,
               })
             }

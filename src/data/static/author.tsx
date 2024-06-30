@@ -14,7 +14,7 @@ export const authorData = {
   name: 'Spy Thirtythree',
   user_name: 'Cameronwilliamson',
   wallet_key:
-    '0x9Af568442868356c7aE834A47614600002545476555555555772d9F5B87e9b',
+    '0x1Af568442868356c7aE834A47614600002545476555555555772d9F5B87e9b',
   created_at: 'November 2021',
   cover_image: {
     id: 1,
@@ -27,7 +27,7 @@ export const authorData = {
     original: AuthorImage,
   },
   bio: 'Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis.',
-  following: '1,504',
+  following: '1,507',
   followers: '1,845',
   followed_by: [
     {
