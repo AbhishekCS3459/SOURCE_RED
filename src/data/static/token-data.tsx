@@ -53,33 +53,27 @@ export const TopTokensData = [
 
 export const TopPoolsData = [
   {
-    from: 'BTC',
-    to: 'USDC',
-    volume: '434.2M',
+    userdata: '0x12934',
+    volume: '452',
   },
   {
-    from: 'USDT',
-    to: 'DOGE',
-    volume: '356.4M',
+    userdata: '0353246x3',
+    volume: '364',
   },
   {
-    from: 'ADA',
-    to: 'BNB',
-    volume: '295.6M',
+    userdata: '3x34535',
+    volume: '296',
   },
   {
-    from: 'USDT',
-    to: 'USDC',
-    volume: '402.5M',
+    userdata: '8735x53',
+    volume: '405',
   },
   {
-    from: 'ETH',
-    to: 'DOGE',
-    volume: '590.2M',
+    userdata: 'x45460',
+    volume: '592',
   },
   {
-    from: 'BTC',
-    to: 'ADA',
-    volume: '104.6M',
+    userdata: 'bx345v5',
+    volume: '106',
   },
 ];

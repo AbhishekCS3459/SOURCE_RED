@@ -17,12 +17,12 @@ export default function TopPools({ limit }: TopPoolsProps) {
         'rounded-lg bg-white p-6 shadow-card dark:bg-light-dark sm:p-8',
         {
           'w-full lg:w-[49%]': layout === LAYOUT_OPTIONS.RETRO,
-        }
+        },
       )}
     >
-      <h3 className="mb-6 text-base font-medium uppercase">Top Criptic</h3>
+      <h3 className="mb-6 text-base font-medium uppercase">Top Users</h3>
       <div className="mb-5 flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
-        <span className="col-span-2">Pool</span>
+        <span className="col-span-2">User</span>
         <span>Volume</span>
       </div>
 
@@ -35,7 +35,7 @@ export default function TopPools({ limit }: TopPoolsProps) {
             key={index}
           >
             <div className="col-span-2 flex items-center gap-2">
-              <CurrencySwapIcons from={from} to={to} />
+              {pool.userdata}
             </div>
             <span>{pool.volume}</span>
           </div>

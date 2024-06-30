@@ -1,5 +1,3 @@
-'use client';
-
 import React from 'react';
 import {
   useTable,
@@ -24,12 +22,6 @@ const COLUMNS = [
     maxWidth: 80,
   },
   {
-    Header: 'Type',
-    accessor: 'transactionType',
-    minWidth: 60,
-    maxWidth: 80,
-  },
-  {
     Header: () => <div className="ltr:ml-auto rtl:mr-auto">Date</div>,
     accessor: 'createdAt',
     // @ts-ignore
@@ -38,16 +30,6 @@ const COLUMNS = [
     ),
     minWidth: 160,
     maxWidth: 220,
-  },
-  {
-    Header: () => <div className="ltr:ml-auto rtl:mr-auto">Asset</div>,
-    accessor: 'symbol',
-    // @ts-ignore
-    Cell: ({ cell: { value } }) => (
-      <div className="ltr:text-right rtl:text-left">{value}</div>
-    ),
-    minWidth: 80,
-    maxWidth: 120,
   },
   {
     Header: () => <div className="ltr:ml-auto rtl:mr-auto">Status</div>,
@@ -119,7 +101,7 @@ export default function TransactionTable() {
     useSortBy,
     useResizeColumns,
     useFlexLayout,
-    usePagination
+    usePagination,
   );
 
   const { pageIndex } = state;
@@ -146,7 +128,7 @@ export default function TransactionTable() {
                     {headerGroup.headers.map((column, idx) => (
                       <th
                         {...column.getHeaderProps(
-                          column.getSortByToggleProps()
+                          column.getSortByToggleProps(),
                         )}
                         key={idx}
                         className="group  bg-white px-2 py-5 font-normal first:rounded-bl-lg last:rounded-br-lg ltr:first:pl-8 ltr:last:pr-8 rtl:first:pr-8 rtl:last:pl-8 dark:bg-light-dark md:px-4"

@@ -49,16 +49,7 @@ export function CoinCard({
           className={`flex items-center  ${
             isChangePositive ? 'text-green-500' : 'text-red-500'
           }`}
-        >
-          <span
-            className={`ltr:mr-2 rtl:ml-2 ${
-              !isChangePositive ? 'rotate-180' : ''
-            }`}
-          >
-            <ArrowUp />
-          </span>
-          {change}
-        </span>
+        ></span>
       </div>
     </div>
   );
@@ -117,8 +108,6 @@ export default function CoinSlider({ coins }: CoinSliderProps) {
               logo={coin.logo}
               balance={coin.balance}
               usdBalance={coin.usdBalance}
-              change={coin.change}
-              isChangePositive={coin.isChangePositive}
               color={coin.color}
             />
           </SwiperSlide>

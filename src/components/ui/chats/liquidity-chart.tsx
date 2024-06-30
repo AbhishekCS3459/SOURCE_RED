@@ -30,13 +30,13 @@ const numberAbbr = (number: any) => {
 export default function LiquidityChart() {
   let [date, setDate] = useState(1624147200);
   let [liquidity, setLiquidity] = useState('547792029');
-  const formattedDate = format(new Date(date * 1000), 'MMMM d, yyyy');
+  const formattedDate = format(new Date(date * 10), 'MMMM d, yyyy');
   const dailyLiquidity = numberAbbr(liquidity);
 
   return (
     <div className="rounded-lg bg-white p-6 shadow-card dark:bg-light-dark sm:p-8">
       <h3 className="mb-1.5 text-sm uppercase tracking-wider text-gray-600 dark:text-gray-400 sm:mb-2 sm:text-base">
-        Liquidity
+        Total Raised
       </h3>
       <div className="mb-1 text-base font-medium text-gray-900 dark:text-white sm:text-xl">
         {dailyLiquidity}
@@ -57,11 +57,11 @@ export default function LiquidityChart() {
             onMouseMove={(data) => {
               if (data.isTooltipActive) {
                 setDate(
-                  data.activePayload && data.activePayload[0].payload.date
+                  data.activePayload && data.activePayload[0].payload.date,
                 );
                 setLiquidity(
                   data.activePayload &&
-                    data.activePayload[0].payload.dailyVolumeUSD
+                    data.activePayload[0].payload.dailyVolumeUSD,
                 );
               }
             }}
